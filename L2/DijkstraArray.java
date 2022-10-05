@@ -1,5 +1,5 @@
 public class DijkstraArray {
-	static final int V = 10;
+	static final int V = 100;
 	
 	int minDist(int dist[], boolean visited[]) {
 		int min = Integer.MAX_VALUE, minIndex = -1;
@@ -54,6 +54,10 @@ public class DijkstraArray {
  		 
  		 
  		 DijkstraArray myObj = new DijkstraArray();
+		 long startTime = System.nanoTime();
          myObj.dijkstra(graph, source);
+		 long endTime = System.nanoTime();
+		 long duration = (endTime - startTime)/1000000; // in milliseconds
+		 System.out.println("Duration: " + duration + "ms");
 	}
 }
