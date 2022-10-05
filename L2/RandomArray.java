@@ -52,12 +52,6 @@ public class RandomArray {
     }
 
     public static void main(String[] args) {
-        // The smaller the min value the more likely the array generated is not
-        // connected
-        // Which in that case the function would just repeat until it generate a
-        // connected graph
-        // Which will take quite some time if the value of n is big
-        // TL;DR big n smol min run long
         int[][] arr = random2DSquareArray(5, -10, 10);
 
         for (int[] a : arr) {
