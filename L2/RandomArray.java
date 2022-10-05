@@ -14,10 +14,14 @@ public class RandomArray {
      */
     public static int[][] random2DSquareArray(int n, int min, int max) {
         int[][] array = new int[n][n];
+        int num;
         do {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    int num = (int) (Math.random() * (double) ((max - min + 1)) + (double) min);
+                	if (i == 0 && j == 0)
+                		num = 0;
+                	else 
+                		num = (int) (Math.random() * (double) ((max - min + 1)) + (double) min);
                     num = num < 0 ? 0 : num;
                     array[i][j] = num;
                 }

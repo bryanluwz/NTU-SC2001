@@ -1,5 +1,5 @@
 public class DijkstraArray {
-	static final int V = 5;
+	static final int V = 10;
 	
 	int minDist(int dist[], boolean visited[]) {
 		int min = Integer.MAX_VALUE, minIndex = -1;
@@ -39,17 +39,21 @@ public class DijkstraArray {
 			System.out.println("Vertex: " + j + " Minimum Distance from Source: " + dist[j]);
 	}
 	
-	public static void main(String[] args) {
-		int graph[][] = new int[][] {
-                {-1, 5, 10, -1, -1},
-                {-1, -1, 3, 9, 2},
-                {-1, 2, -1, 1, -1},
-                {-1, -1, -1, -1, 4},
-                {7, -1, -1, 6, -1}
-              };
-              
+	public static void main(String[] args) {      
          int source = 0;
-         DijkstraArray myObj = new DijkstraArray();
+         int [][] graph = new int[V][V];
+ 		
+ 		 graph = RandomArray.random2DSquareArray(V, 1, 10);
+ 		 
+ 		 for (int i=0; i<V; i++) {
+ 			 for (int j=0; j<V; j++) {
+ 				 System.out.print(graph[i][j] + " ");
+ 			 }
+ 			 System.out.println();
+ 		 }
+ 		 
+ 		 
+ 		 DijkstraArray myObj = new DijkstraArray();
          myObj.dijkstra(graph, source);
 	}
 }
