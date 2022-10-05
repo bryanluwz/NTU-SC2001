@@ -50,23 +50,42 @@ public class DijkstraMinHeap {
 	public static void main(String[] args) {
 		int V = 5;
 		ArrayList<ArrayList<Node> > graph = new ArrayList<>();
+		int [][] intGraph = new int[V][V];
+		
+		intGraph = RandomArray.random2DSquareArray(V, -10, 10);
+		
+		for (int i=0; i<V; i++) {
+			for (int j=0; j<V; j++) {
+				System.out.print(intGraph[i][j] + " ");
+			}
+			System.out.println();
+		}
 		
 		for (int i = 0; i < V; i++) 
             graph.add(new ArrayList<>());
 		
 		int source = 0;
 		
-		graph.get(0).add(new Node(1, 5));
-		graph.get(0).add(new Node(2, 10));
-		graph.get(1).add(new Node(2, 3));
-		graph.get(1).add(new Node(3, 9));
-		graph.get(1).add(new Node(4, 2));
-		graph.get(2).add(new Node(1, 2));
-		graph.get(2).add(new Node(3, 1));
-		graph.get(3).add(new Node(4, 4));
-		graph.get(4).add(new Node(0, 7));
-		graph.get(4).add(new Node(3, 6));
-		
+		for (int i=0; i<V; i++) {
+			for (int j=0; j<V; j++) {
+				if (intGraph[i][j] != 0)
+				{
+					graph.get(i).add(new Node(j, intGraph[i][j]));
+				}
+			}
+		}
+//		
+//		graph.get(0).add(new Node(1, 5));
+//		graph.get(0).add(new Node(2, 10));
+//		graph.get(1).add(new Node(2, 3));
+//		graph.get(1).add(new Node(3, 9));
+//		graph.get(1).add(new Node(4, 2));
+//		graph.get(2).add(new Node(1, 2));
+//		graph.get(2).add(new Node(3, 1));
+//		graph.get(3).add(new Node(4, 4));
+//		graph.get(4).add(new Node(0, 7));
+//		graph.get(4).add(new Node(3, 6));
+//		
 		dijkstra(V, graph, source);
 	}
 }
