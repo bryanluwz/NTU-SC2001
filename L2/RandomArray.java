@@ -13,18 +13,22 @@ public class RandomArray {
      * @param max the maximum value of the array
      */
     public static int[][] random2DSquareArray(int n, int min, int max) {
-        int[][] array = new int[n][n];
+        int[][] arr = new int[n][n];
         do {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
+                    if (i == j) {
+                        arr[i][j] = 0;
+                        continue;
+                    }
                     int num = (int) (Math.random() * (double) ((max - min + 1)) + (double) min);
                     num = num < 0 ? 0 : num;
-                    array[i][j] = num;
+                    arr[i][j] = num;
                 }
             }
-        } while (!isConnectedFromFirstNode(array));
+        } while (!isConnectedFromFirstNode(arr));
 
-        return array;
+        return arr;
     }
 
     public static boolean isConnectedFromFirstNode(int[][] arr) {
