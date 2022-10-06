@@ -15,18 +15,22 @@ public class RandomArray {
      * @param max the maximum value of the array
      */
     public static int[][] random2DSquareArray(int n, int min, int max) {
-        int[][] array = new int[n][n];
+        int[][] arr = new int[n][n];
         do {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
+                    if (i == j) {
+                        arr[i][j] = 0;
+                        continue;
+                    }
                     int num = (int) (Math.random() * (double) ((max - min + 1)) + (double) min);
                     num = num < 0 ? 0 : num;
-                    array[i][j] = num;
+                    arr[i][j] = num;
                 }
             }
-        } while (!isConnectedFromFirstNode(array));
+        } while (!isConnectedFromFirstNode(arr));
 
-        return array;
+        return arr;
     }
 
     public static boolean isConnectedFromFirstNode(int[][] arr) {
@@ -53,7 +57,7 @@ public class RandomArray {
         }
     }
 
-    public static void print2DArray(int [][] arr) {
+    public static void print2DArray(int[][] arr) {
         for (int[] a : arr) {
             for (int b : a) {
                 System.out.printf("%2d ", b);
@@ -62,16 +66,15 @@ public class RandomArray {
         }
     }
 
-    public static void to2DGraph(int[][] arr, ArrayList<ArrayList<Node> > graph) {
-        for (int i=0; i<arr.length; i++) {
-			graph.add(new ArrayList<>());
-			for (int j=0; j<arr.length; j++) {
-				if (arr[i][j] != 0)
-				{
-					graph.get(i).add(new Node(j, arr[i][j]));
-				}
-			}
-		}
+    public static void to2DGraph(int[][] arr, ArrayList<ArrayList<Node>> graph) {
+        for (int i = 0; i < arr.length; i++) {
+            graph.add(new ArrayList<>());
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[i][j] != 0) {
+                    graph.get(i).add(new Node(j, arr[i][j]));
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
