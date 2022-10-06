@@ -62,8 +62,9 @@ public class RandomArray {
             for (int b : a) {
                 System.out.printf("%2d ", b);
             }
-            System.out.printf("\n");
+            System.out.print("\n");
         }
+        System.out.print("\n");
     }
 
     public static void to2DGraph(int[][] arr, ArrayList<ArrayList<Node>> graph) {
@@ -77,15 +78,30 @@ public class RandomArray {
         }
     }
 
+    public static void print2DGraph(ArrayList<ArrayList<Node>> graph) {
+        for (int i = 0; i < graph.size();i++) {
+            System.out.printf("%2d", i);
+            for (Node j : graph.get(i)) {
+                System.out.printf(" -> %2d", j.getVertex());
+            }
+            System.out.print("\n");
+        }
+        System.out.print("\n");
+    }
+
     public static void main(String[] args) {
         int[][] arr = random2DSquareArray(5, -10, 10);
 
-        for (int[] a : arr) {
-            for (int b : a) {
-                System.out.printf("%2d ", b);
-            }
-            System.out.printf("\n");
-        }
-        System.out.println(isConnectedFromFirstNode(arr));
+        print2DArray(arr);
+
+        ArrayList<ArrayList<Node>> graph = new ArrayList<>();
+        
+        to2DGraph(arr, graph);
+
+        print2DGraph(graph);
+
+        // System.out.println(isConnectedFromFirstNode(arr));
+
+
     }
 }
