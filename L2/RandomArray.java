@@ -101,7 +101,5 @@ public class RandomArray {
         print2DGraph(graph);
 
         // System.out.println(isConnectedFromFirstNode(arr));
-
-
     }
 }
