@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class RandomArray {
     /**
      * Returns a 2D Square array of a connected graph.
@@ -14,14 +16,10 @@ public class RandomArray {
      */
     public static int[][] random2DSquareArray(int n, int min, int max) {
         int[][] array = new int[n][n];
-        int num;
         do {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                	if (i == 0 && j == 0)
-                		num = 0;
-                	else 
-                		num = (int) (Math.random() * (double) ((max - min + 1)) + (double) min);
+                    int num = (int) (Math.random() * (double) ((max - min + 1)) + (double) min);
                     num = num < 0 ? 0 : num;
                     array[i][j] = num;
                 }
@@ -30,3 +28,61 @@ public class RandomArray {
 
         return array;
     }
+
+    public static boolean isConnectedFromFirstNode(int[][] arr) {
+        boolean[] checked = new boolean[arr.length];
+        for (int i = 0; i < checked.length; i++) {
+            checked[i] = false;
+        }
+        isConnectedFromFirstNodeUtil(arr, 0, checked);
+        for (boolean i : checked) {
+            if (!i) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void isConnectedFromFirstNodeUtil(int[][] arr, int cur, boolean[] checked) {
+        checked[cur] = true;
+        for (int i = 0; i < arr[cur].length; i++) {
+            // Checked if is connected
+            if (arr[cur][i] > 0 && !checked[i]) {
+                isConnectedFromFirstNodeUtil(arr, i, checked);
+            }
+        }
+    }
+
+    public static void print2DArray(int [][] arr) {
+        for (int[] a : arr) {
+            for (int b : a) {
+                System.out.printf("%2d ", b);
+            }
+            System.out.printf("\n");
+        }
+    }
+
+    public static void to2DGraph(int[][] arr, ArrayList<ArrayList<Node> > graph) {
+        for (int i=0; i<arr.length; i++) {
+			graph.add(new ArrayList<>());
+			for (int j=0; j<arr.length; j++) {
+				if (arr[i][j] != 0)
+				{
+					graph.get(i).add(new Node(j, arr[i][j]));
+				}
+			}
+		}
+    }
+
+    public static void main(String[] args) {
+        int[][] arr = random2DSquareArray(5, -10, 10);
+
+        for (int[] a : arr) {
+            for (int b : a) {
+                System.out.printf("%2d ", b);
+            }
+            System.out.printf("\n");
+        }
+        System.out.println(isConnectedFromFirstNode(arr));
+    }
+}
