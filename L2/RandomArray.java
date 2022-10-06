@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class RandomArray {
     /**
      * Returns a 2D Square array of a connected graph.
@@ -49,6 +51,27 @@ public class RandomArray {
                 isConnectedFromFirstNodeUtil(arr, i, checked);
             }
         }
+    }
+
+    public static void print2DArray(int [][] arr) {
+        for (int[] a : arr) {
+            for (int b : a) {
+                System.out.printf("%2d ", b);
+            }
+            System.out.printf("\n");
+        }
+    }
+
+    public static void to2DGraph(int[][] arr, ArrayList<ArrayList<Node> > graph) {
+        for (int i=0; i<arr.length; i++) {
+			graph.add(new ArrayList<>());
+			for (int j=0; j<arr.length; j++) {
+				if (arr[i][j] != 0)
+				{
+					graph.get(i).add(new Node(j, arr[i][j]));
+				}
+			}
+		}
     }
 
     public static void main(String[] args) {
