@@ -79,51 +79,64 @@ public class DijkstraApp {
 
 	public static void main(String[] args) {
 		int V;
-
-		// Doing stuff for the csv thingy
-		List<String[]> dataLines = new ArrayList<>();
-		String[] header = { "V", "Array with Adjacency Matrix Number of Comparisons",
-				"MinHeap with Adjacency List Number of Comparisons", "Difference (array - heap)" };
-		dataLines.add(header);
+		int max = 20;
 
 		try {
-			for (V = 10; V <= 200; V += 5) {
-				ArrayList<ArrayList<Node>> graph = new ArrayList<>();
-				int[][] intGraph = new int[V][V];
+			// Vary E by settin min to different value
+			for (int min = -40; min <= -10; min += 10) {
+				// Doing stuff for the csv thingy
+				List<String[]> dataLines = new ArrayList<>();
+				String[] header = { "V", "Array with Adjacency Matrix Number of Comparisons",
+						"MinHeap with Adjacency List Number of Comparisons", "Difference (array - heap)" };
+				dataLines.add(header);
 
-				intGraph = RandomArray.random2DSquareArray(V, -10, 10);
+				System.out.printf("\nChances of edge created = %.2f\n", (float)(max - 1) / (float)(max - min) * 100);
 
-				int source = 0;
-				System.out.println("V = " + V);
+				// Vary V
+				for (V = 10; V <= 200; V += 5) {
+					ArrayList<ArrayList<Node>> graph = new ArrayList<>();
+					int[][] intGraph = new int[V][V];
 
-				// array with adjacency matrix
-				DijkstraApp object = new DijkstraApp();
-				object.dijkstraArray(intGraph, source, V);
-				System.out.println("Array with Adjacency Matrix");
-				System.out.println("Number of comparisons made: " + counterArray);
+					intGraph = RandomArray.random2DSquareArray(V, min, max);
+					if (V == 15 && min == -40)
+						PlotGraphUtil.squareMatrixToCSV(intGraph, "./data/graph.csv");
 
-				RandomArray.to2DGraph(intGraph, graph); // convert adj matrix to adj list
+					int source = 0;
+					System.out.printf("V = %d, E = %d\n", V, RandomArray.countEdge(intGraph));
 
-				// minheap with adjacency list
-				dijkstraMinHeap(V, graph, source);
-				System.out.println();
-				System.out.println("MinHeap with Adjacency List");
-				System.out.println("Number of comparisons made: " + counterMinHeap);
-				System.out.println();
-				System.out.println(
-						"Difference in number of comparisons made (array - minheap): "
-								+ (counterArray - counterMinHeap));
-				System.out.println("=============================================");
-				System.out.println();
+					// array with adjacency matrix
+					DijkstraApp object = new DijkstraApp();
+					object.dijkstraArray(intGraph, source, V);
+					// System.out.println("Array with Adjacency Matrix");
+					// System.out.println("Number of comparisons made: " + counterArray);
 
-				String[] data = { Integer.toString(V), Long.toString(counterArray), Long.toString(counterMinHeap),
-						Long.toString(counterArray - counterMinHeap) };
-				dataLines.add(data);
+					RandomArray.to2DGraph(intGraph, graph); // convert adj matrix to adj list
 
-				counterArray = 0;
-				counterMinHeap = 0;
+					// minheap with adjacency list
+					dijkstraMinHeap(V, graph, source);
+					// System.out.println();
+					// System.out.println("MinHeap with Adjacency List");
+					// System.out.println("Number of comparisons made: " + counterMinHeap);
+					// System.out.println();
+					// System.out.println(
+					// "Difference in number of comparisons made (array - minheap): "
+					// + (counterArray - counterMinHeap));
+					// System.out.println("=============================================");
+					// System.out.println();
+
+					String[] data = { Integer.toString(V), Long.toString(counterArray), Long.toString(counterMinHeap),
+							Long.toString(counterArray - counterMinHeap) };
+
+					dataLines.add(data);
+
+					counterArray = 0;
+					counterMinHeap = 0;
+				}
+
+				CSVthingy.givenDataArray_whenConvertToCSV_thenOutputCreated(String.format("./data/min=%d.csv", min),
+						dataLines);
 			}
-			CSVthingy.givenDataArray_whenConvertToCSV_thenOutputCreated("./data/output.csv", dataLines);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

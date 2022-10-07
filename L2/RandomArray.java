@@ -89,6 +89,18 @@ public class RandomArray {
         System.out.print("\n");
     }
 
+    public static int countEdge(int[][] arr) {
+        int count = 0;
+        for (int[] is : arr) {
+            for (int is2 : is) {
+                if (is2 > 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         int[][] arr = random2DSquareArray(5, -10, 10);
 
