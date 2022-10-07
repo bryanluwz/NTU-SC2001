@@ -62,19 +62,7 @@ public class RandomArray {
             for (int b : a) {
                 System.out.printf("%2d ", b);
             }
-            System.out.print("\n");
-        }
-        System.out.print("\n");
-    }
-
-    public static void to2DGraph(int[][] arr, ArrayList<ArrayList<Node>> graph) {
-        for (int i = 0; i < arr.length; i++) {
-            graph.add(new ArrayList<>());
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[i][j] != 0) {
-                    graph.get(i).add(new Node(j, arr[i][j]));
-                }
-            }
+            System.out.printf("\n");
         }
     }
 
@@ -88,18 +76,37 @@ public class RandomArray {
         }
         System.out.print("\n");
     }
-
+    
+    public static void to2DGraph(int[][] arr, ArrayList<ArrayList<Node>> graph) {
+        for (int i = 0; i < arr.length; i++) {
+            graph.add(new ArrayList<>());
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[i][j] != 0) {
+                    graph.get(i).add(new Node(j, arr[i][j]));
+                }
+            }
+        }
+    }
+    
+    public static int countEdges(int[][]arr) {
+        int counter = 0;
+        for (int i=0; i<arr.length; i++) {
+            for (int j=0; j<arr.length; j++) {
+                if (arr[i][j] > 0) counter++;
+            }
+        }
+        return counter;
+    }
+    
     public static void main(String[] args) {
         int[][] arr = random2DSquareArray(5, -10, 10);
 
-        print2DArray(arr);
-
-        ArrayList<ArrayList<Node>> graph = new ArrayList<>();
-        
-        to2DGraph(arr, graph);
-
-        print2DGraph(graph);
-
-        // System.out.println(isConnectedFromFirstNode(arr));
+        for (int[] a : arr) {
+            for (int b : a) {
+                System.out.printf("%2d ", b);
+            }
+            System.out.printf("\n");
+        }
+        System.out.println(isConnectedFromFirstNode(arr));
     }
 }
