@@ -1,45 +1,39 @@
 /**
- * Thanks https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+ * Thanks
+ * https://www.geeksforgeeks.org/unbounded-knapsack-repetition-items-allowed/
  */
 
 public class KnapsackRecursive {
-    // A utility function that returns
-    // maximum of two integers
+    // A utility function that returns maximum of two integers
     static int max(int a, int b) {
         return (a > b) ? a : b;
     }
 
-    // Returns the maximum value that
-    // can be put in a knapsack of
-    // capacity W
-    static int knapSack(int W, int wt[], int val[], int n) {
-        // Base Case
-        if (n == 0 || W == 0)
-            return 0;
+    // Returns the maximum value that can be put in a knapsack of capacity W
+    static int unboundedKnapsack(int C, int wt[], int val[], int idx) {
+        // Base Case if we are at idx 0.
+        if (idx == 0) {
+            return (C / wt[0]) * val[0];
+        }
 
-        // If weight of the nth item is
-        // more than Knapsack capacity W,
-        // then this item cannot be included
-        // in the optimal solution
-        if (wt[n - 1] > W)
-            return knapSack(W, wt, val, n - 1);
+        // There are two cases either take element or not take. If not take then
+        int notTake = 0 + unboundedKnapsack(C, wt, val, idx - 1);
 
-        // Return the maximum of two cases:
-        // (1) nth item included
-        // (2) not included
-        else
-            return max(val[n - 1]
-                    + knapSack(W - wt[n - 1], wt,
-                            val, n - 1),
-                    knapSack(W, wt, val, n - 1));
+        // If take then weight = capacity - wt[idx] and index will remain same.
+        int take = Integer.MIN_VALUE;
+        if (wt[idx] <= C) {
+            take = val[idx] + unboundedKnapsack(C - wt[idx], wt, val, idx);
+        }
+
+        return max(take, notTake);
     }
 
     // Driver code
     public static void main(String args[]) {
-        int val[] = new int[] { 60, 100, 120 };
-        int wt[] = new int[] { 10, 20, 30 };
-        int W = 50;
-        int n = val.length;
-        System.out.println(knapSack(W, wt, val, n));
+        int capacity = 100;
+        int values[] = { 10, 30, 20 };
+        int weights[] = { 5, 10, 15 };
+        int n = values.length;
+        System.out.println(unboundedKnapsack(capacity, weights, values, n - 1));
     }
 }

@@ -1,40 +1,36 @@
+/**
+ * Thanks
+ * https://www.geeksforgeeks.org/unbounded-knapsack-repetition-items-allowed/
+ */
+
 public class KnapsackDynamic {
-    // A utility function that returns
-    // maximum of two integers
-    static int max(int a, int b) {
-        return (a > b) ? a : b;
+    private static int max(int i, int j) {
+        return (i > j) ? i : j;
     }
 
-    // Returns the maximum value that can
-    // be put in a knapsack of capacity W
-    static int knapSack(int W, int wt[],
-            int val[], int n) {
-        int i, w;
-        int K[][] = new int[n + 1][W + 1];
+    // Returns the maximum value with knapsack of W capacity
+    private static int unboundedKnapsack(int C, int n, int[] val, int[] wt) {
 
-        // Build table K[][] in bottom up manner
-        for (i = 0; i <= n; i++) {
-            for (w = 0; w <= W; w++) {
-                if (i == 0 || w == 0)
-                    K[i][w] = 0;
-                else if (wt[i - 1] <= w)
-                    K[i][w] = max(val[i - 1]
-                            + K[i - 1][w - wt[i - 1]],
-                            K[i - 1][w]);
-                else
-                    K[i][w] = K[i - 1][w];
+        // dp[i] is going to store maximum with knapsack capacity i.
+        int dp[] = new int[C + 1];
+
+        // Fill dp[] using above recursive formula
+        for (int i = 0; i <= C; i++) {
+            for (int j = 0; j < n; j++) {
+                if (wt[j] <= i) {
+                    dp[i] = max(dp[i], dp[i - wt[j]] + val[j]);
+                }
             }
         }
-
-        return K[n][W];
+        return dp[C];
     }
 
-    // Driver code
-    public static void main(String args[]) {
-        int val[] = new int[] { 60, 100, 120 };
-        int wt[] = new int[] { 10, 20, 30 };
-        int W = 50;
-        int n = val.length;
-        System.out.println(knapSack(W, wt, val, n));
+    // Driver program
+    public static void main(String[] args) {
+        int capacity = 100;
+        int values[] = { 10, 30, 20 };
+        int weights[] = { 5, 10, 15 };
+        int n = values.length;
+        System.out.println(unboundedKnapsack(capacity, n, values, weights));
     }
 }
