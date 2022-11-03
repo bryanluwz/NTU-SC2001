@@ -4,12 +4,14 @@
  */
 
 public class KnapsackDynamic {
+    public static int count = 0;
+
     private static int max(int i, int j) {
         return (i > j) ? i : j;
     }
 
     // Returns the maximum value with knapsack of W capacity
-    private static int unboundedKnapsack(int C, int n, int[] val, int[] wt) {
+    public static int unboundedKnapsack(int C, int[] val, int[] wt, int n) {
 
         // dp[i] is going to store maximum with knapsack capacity i.
         int dp[] = new int[C + 1];
@@ -17,6 +19,7 @@ public class KnapsackDynamic {
         // Fill dp[] using above recursive formula
         for (int i = 0; i <= C; i++) {
             for (int j = 0; j < n; j++) {
+                count++;
                 if (wt[j] <= i) {
                     dp[i] = max(dp[i], dp[i - wt[j]] + val[j]);
                 }
@@ -27,10 +30,11 @@ public class KnapsackDynamic {
 
     // Driver program
     public static void main(String[] args) {
-        int capacity = 100;
-        int values[] = { 10, 30, 20 };
-        int weights[] = { 5, 10, 15 };
+        int capacity = 14;
+        int values[] = { 7, 6, 9 };
+        int weights[] = { 4, 6, 8 };
         int n = values.length;
-        System.out.println(unboundedKnapsack(capacity, n, values, weights));
+        System.out.println(unboundedKnapsack(capacity, values, weights, n));
+        System.out.println(count);
     }
 }
