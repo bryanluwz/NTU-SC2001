@@ -25,6 +25,10 @@ public class KnapsackDynamic {
                 }
             }
         }
+        for (int i : dp) {
+            System.out.printf("%d ", i);
+        }
+
         return dp[C];
     }
 
