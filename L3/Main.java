@@ -1,54 +1,57 @@
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
-        int capacity = 14;
+	public static void main(String[] args) {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 
-        // Test case 1
-        int values[] = { 7, 6, 9 };
-        int weights[] = { 4, 6, 8 };
+		int capacity = 14;
 
-        System.out.print("\n");
-        System.out.println("\u001B[36m========== Test Case 1 ==========\u001B[0m");
+		// Test case 1
+		int values[] = { 7, 6, 9 };
+		int weights[] = { 4, 6, 8 };
 
-        System.out.println("Knapsack of Capacity\t: " + capacity);
+		System.out.print("\n");
+		System.out.println("\u001B[36m========== Test Case 1 ==========\u001B[0m");
 
-        // I don't know what's going here I just copied the code from the internet
-        System.out.println("Weights of each item\t: " + String.join(", ", Arrays.stream(weights)
-                .mapToObj(String::valueOf)
-                .toArray(String[]::new)));
-        System.out.println("Values of each item\t: " + String.join(", ", Arrays.stream(values)
-                .mapToObj(String::valueOf)
-                .toArray(String[]::new)));
+		System.out.println("Knapsack of Capacity\t: " + capacity);
 
-        System.out.print("Knapsack Recursive value: ");
-        System.out.println(KnapsackRecursive.unboundedKnapsack(capacity, weights, values, values.length - 1));
+		// I don't know what's going here I just copied the code from the internet
+		System.out.println("Weights of each item\t: " + String.join(", ", Arrays.stream(weights)
+				.mapToObj(String::valueOf)
+				.toArray(String[]::new)));
+		System.out.println("Values of each item\t: " + String.join(", ", Arrays.stream(values)
+				.mapToObj(String::valueOf)
+				.toArray(String[]::new)));
 
-        System.out.print("Knapsack Dynamic value\t: ");
-        System.out.println(KnapsackDynamic.unboundedKnapsack(capacity, values, weights, values.length));
+		System.out.print("Knapsack Recursive value: ");
+		System.out.println(KnapsackRecursive.unboundedKnapsack(capacity, weights, values, values.length - 1));
 
-        // Test case 2
-        System.out.print("\n");
-        System.out.println("\u001B[36m========== Test Case 2 ==========\u001B[0m");
+		System.out.print("Knapsack Dynamic value\t: ");
+		System.out.println(KnapsackDynamic.unboundedKnapsack(capacity, values, weights, values.length));
 
-        weights[0] = 5;
+		// Test case 2
+		System.out.print("\n");
+		System.out.println("\u001B[36m========== Test Case 2 ==========\u001B[0m");
 
-        System.out.println("Knapsack of Capacity\t: " + capacity);
+		weights[0] = 5;
 
-        // I don't know what's going here I just copied the code from the internet
-        System.out.println("Weights of each item\t: " + String.join(", ", Arrays.stream(weights)
-                .mapToObj(String::valueOf)
-                .toArray(String[]::new)));
-        System.out.println("Values of each item\t: " + String.join(", ", Arrays.stream(values)
-                .mapToObj(String::valueOf)
-                .toArray(String[]::new)));
+		System.out.println("Knapsack of Capacity\t: " + capacity);
 
-        System.out.print("Knapsack Recursive value: ");
-        System.out.println(KnapsackRecursive.unboundedKnapsack(capacity, weights, values, values.length - 1));
+		// I don't know what's going here I just copied the code from the internet
+		System.out.println("Weights of each item\t: " + String.join(", ", Arrays.stream(weights)
+				.mapToObj(String::valueOf)
+				.toArray(String[]::new)));
+		System.out.println("Values of each item\t: " + String.join(", ", Arrays.stream(values)
+				.mapToObj(String::valueOf)
+				.toArray(String[]::new)));
 
-        System.out.print("Knapsack Dynamic value\t: ");
-        System.out.println(KnapsackDynamic.unboundedKnapsack(capacity, values, weights, values.length));
-        
-        System.out.print("\n");
-    }
+		System.out.print("Knapsack Recursive value: ");
+		System.out.println(KnapsackRecursive.unboundedKnapsack(capacity, weights, values, values.length - 1));
+
+		System.out.print("Knapsack Dynamic value\t: ");
+		System.out.println(KnapsackDynamic.unboundedKnapsack(capacity, values, weights, values.length));
+
+		System.out.print("\n");
+	}
 }
